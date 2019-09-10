@@ -1,5 +1,10 @@
 <header>
-    header :)
+    <div class="main-container">
+        <button mat-button [routerLink]="['decks']" class="menu-option">Logo</button>
+        <button mat-button [routerLink]="['decks']" class="menu-option">Decks</button>
+        <button mat-button [routerLink]="['dashboard']" class="menu-option">Dashboard</button>
+        <button mat-button [routerLink]="['decks']" class="menu-option">Options</button>
+    </div>
 </header>
 <div id="content">
     <router-outlet></router-outlet>

@@ -1,11 +1,11 @@
 @mixin view-cont {
     @media (max-width: 767px) {
-        .view-container {
+        .main-container {
             width: 100vw;
         }
     }
     @media (min-width: 768px) {
-        .view-container {
+        .main-container {
             width: 70vw;
         }
     }
