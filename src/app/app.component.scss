@@ -1,0 +1,13 @@
+header {
+    flex: 0 0 60px;
+    background-color: teal;
+}
+#content {
+    display: flex;
+    flex: 1 0 0;
+    justify-content: center;
+}
+footer {
+    flex: 0 0 60px;
+    background-color: teal;
+}
