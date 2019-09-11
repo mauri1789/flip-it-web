@@ -1,5 +1,66 @@
 @import './../../styles/reusable.scss';
 @include view-cont;
 .decks-container {
-    
+    display:flex;
+    flex-direction: column;
+    .title {
+        display: flex;
+        align-items: center;
+        flex: 0 0 50px;
+        font-size: 22px;
+        font-weight: bold;
+        margin: auto 10px;
+    }
+    .summary {
+        display: flex;
+        flex: 0 0 55px;
+        margin: auto 10px;
+        .label-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-basis: 120px;
+            align-content: center;
+            .label {
+                color: gray;
+                font-weight: bold;
+                font-size: 13px;
+            }
+            .info {
+                font-size: 15px;
+            }
+        }
+    }
+    .collection-cont {
+        margin: auto 10px;
+        flex: 1 0 0;
+        .collection {
+            display: flex;
+            .collection-image {
+                &>img {
+                    max-width: 100%;
+                    height: auto;
+                }
+                flex: 0 0 40px;
+                height: 40px;
+                width: 40px;
+            }
+            .collection-info {
+                flex: 1 0 0;
+                padding-left: 10px;
+                .col-title {
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+                .col-content {
+                    display: flex;
+                    &>div {
+                        flex: 1 0 0 ;   
+                    }
+                    padding-top: 5px;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
 }
