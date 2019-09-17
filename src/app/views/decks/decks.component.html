@@ -1,28 +1,28 @@
 <div class="decks-container main-container">
     <div class="title">My Decks</div>
-    <div class="summary">
+    <div class="summary" *ngIf="userData">
         <div class="label-info">
             <div class="label">Total:</div>
-            <div class="info">20 Decks</div>
+            <div class="info">{{userData.totalCards}} cards</div>
         </div>
         <div class="label-info">
             <div class="label">Last Studied:</div>
-            <div class="info">April the 20th</div>
+            <div class="info">{{userData.lastStudied}}</div>
         </div>
     </div>
-    <div class="collection-cont">
-        <div class="collection">
+    <div class="collection-cont" *ngIf="decks && userData">
+        <div class="collection" *ngFor="let deck of decks">
             <div class="collection-image">
                 <img src="../../../assets/cards-image.png">
             </div>
             <div class="collection-info">
                 <div class="col-title">
-                    My amazing deck
+                    {{deck.deckName}}
                 </div>
                 <div class="col-content">
-                    <div>20 Cards</div>
-                    <div>Created on May 2015</div>
-                    <div>Owner: Mauri</div>
+                    <div>{{deck.cardCount}} Cards</div>
+                    <div>Created on {{deck.dateCreated}}</div>
+                    <div>Owner:{{userData.userName}}</div>
                 </div>
             </div>
         </div>
