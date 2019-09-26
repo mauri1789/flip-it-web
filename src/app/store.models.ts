@@ -1,8 +1,8 @@
-interface UserInfo {
+interface DecksSummary {
     userName: string
     totalDecks: number
-    totalCards: number
-    lastStudied: string
+    totalCards?: number
+    lastStudied?: string
     decks?: Deck[]
 }
 interface Deck {
@@ -11,8 +11,13 @@ interface Deck {
     dateCreated: string
     lastStudied: string
 }
+interface Card {
+    front: string;
+    back: string;
+}
 
 export {
-    UserInfo,
-    Deck
+    DecksSummary,
+    Deck,
+    Card
 }

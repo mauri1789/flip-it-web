@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { Deck, UserInfo } from '../../store.models';
+import { Store } from "@ngrx/store";
+import { DeckService } from '../../services/deck.service';
+import { Deck, DecksSummary } from '../../store.models';
+import { loadDecks } from "../../actions/deck.actions";
 
 @Component({
   selector: 'app-decks',
@@ -8,18 +10,21 @@ import { Deck, UserInfo } from '../../store.models';
   styleUrls: ['./decks.component.scss']
 })
 export class DecksComponent implements OnInit {
-   userData: UserInfo;
+   userData: DecksSummary;
    decks: Deck[];
    constructor(
-      private userService:UserService
+      private deckService:DeckService,
+      private store:Store<{}>
    ) { }
 
    ngOnInit() {
-      this.userService.getUser('global')
-      .subscribe(({decks, ...userInfo}) => {
-         this.userData = userInfo
-         this.decks = decks
-      })
+      console.log("before dispatch")
+      this.store.dispatch(loadDecks({userId: "mau"}))
+      // this.deckService.getUserDecks('mau')
+      // .subscribe(({decks, ...decksSummary}) => {
+      //    this.userData = decksSummary
+      //    this.decks = decks
+      // })
    }
 
 }
