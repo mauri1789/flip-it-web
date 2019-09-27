@@ -12,8 +12,6 @@ import { loadDecks } from "../../actions/deck.actions";
 })
 export class DecksComponent implements OnInit {
    decksSummary$: Observable<DecksSummary>
-   userData: DecksSummary;
-   decks: Deck[];
    constructor(
       private deckService:DeckService,
       private store: Store<{decksSummary: DecksSummary}>
@@ -22,13 +20,7 @@ export class DecksComponent implements OnInit {
    }
 
    ngOnInit() {
-      this.decksSummary$.subscribe(x => console.log(x))
       this.store.dispatch(loadDecks({userId: "mau"}))
-      // this.deckService.getUserDecks('mau')
-      // .subscribe(({decks, ...decksSummary}) => {
-      //    this.userData = decksSummary
-      //    this.decks = decks
-      // })
    }
 
 }

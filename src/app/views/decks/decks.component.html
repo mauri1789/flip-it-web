@@ -1,30 +1,34 @@
 <div class="decks-container main-container">
     <div class="title">My Decks</div>
-    <div class="summary" *ngIf="userData">
-        <div class="label-info">
-            <div class="label">Total:</div>
-            <div class="info">{{userData.totalCards}} cards</div>
-        </div>
-        <div class="label-info">
-            <div class="label">Last Studied:</div>
-            <div class="info">{{userData.lastStudied}}</div>
-        </div>
-    </div>
-    <div class="collection-cont" *ngIf="decks && userData">
-        <div class="collection" *ngFor="let deck of decks">
-            <div class="collection-image">
-                <img src="../../../assets/cards-image.png">
+    <ng-container *ngIf="{
+        summary: decksSummary$ | async
+    } as data">
+        <div class="summary" *ngIf="data.summary">
+            <div class="label-info">
+                <div class="label">Total:</div>
+                <div class="info">{{data.summary.cardCount}} cards</div>
             </div>
-            <div class="collection-info">
-                <div class="col-title">
-                    {{deck.deckName}}
-                </div>
-                <div class="col-content">
-                    <div>{{deck.cardCount}} Cards</div>
-                    <div>Created on {{deck.dateCreated}}</div>
-                    <div>Owner:{{userData.userName}}</div>
-                </div>
+            <div class="label-info">
+                <div class="label">Last Studied:</div>
+                <div class="info">{{data.summary.lastStudied}}</div>
             </div>
         </div>
-    </div>
+        <div class="collection-cont" *ngIf="data.summary">
+            <div class="collection" *ngFor="let deck of data.summary.decks">
+                <div class="collection-image">
+                    <img src="../../../assets/cards-image.png">
+                </div>
+                <div class="collection-info">
+                    <div class="col-title">
+                        {{deck.deckName}}
+                    </div>
+                    <div class="col-content">
+                        <div>{{deck.cardCount}} Cards</div>
+                        <div>Created on Nov the 6th</div>
+                        <div>Owner:{{data.summary.userName}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
 </div>
