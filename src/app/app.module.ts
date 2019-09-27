@@ -35,7 +35,7 @@ let MATERIAL_MODULES = [
     HttpClientModule,
     MATERIAL_MODULES,
     StoreModule.forRoot({
-      decks: deckReducer
+      decksSummary: deckReducer
     }),
     EffectsModule.forRoot([
       DeckEffects

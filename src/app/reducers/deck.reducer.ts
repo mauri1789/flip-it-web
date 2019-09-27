@@ -6,7 +6,7 @@ export const initialState = null
 
 const _deckReducer = createReducer(
    initialState,
-   on(setDecks, (state, decks) => decks)
+   on(setDecks, (_, payload) => payload.decksSummary)
 )
 
 export function deckReducer(state: DecksSummary | null, action:Action) {

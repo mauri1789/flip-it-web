@@ -20,9 +20,17 @@ export class DeckEffects {
             ofType(loadDecks),
             exhaustMap(action =>
                   this.deckService.getUserDecks(action.userId).pipe(
+                     map(deckList => ({
+                        decksSummary: {
+                           userName: action.userId,
+                           totalDecks: deckList.length,
+                           cardCount: deckList.reduce((total, deck) => total + deck.cardCount, 0),
+                           decks: deckList,
+                           lastStudied: 'Feb the 3rd'
+                        }
+                     })),
                      map(deckData => setDecks(deckData)),
-                     tap(() => console.log("it worked!!"))
-                     // tap((action) => store.dispatch(action))
+                     tap((action) => store.dispatch(action))
                   )
             )
          )
