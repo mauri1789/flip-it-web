@@ -36,14 +36,19 @@
         flex: 1 0 0;
         .collection {
             display: flex;
+            padding-top: 12px;
+            padding-bottom: 6px;
+            &:hover {
+                background-color: lighten($color: gainsboro, $amount: 8);
+            }
             .collection-image {
                 &>img {
                     max-width: 100%;
                     height: auto;
                 }
-                flex: 0 0 40px;
-                height: 40px;
-                width: 40px;
+                flex: 0 0 50px;
+                height: 50px;
+                width: 50px;
             }
             .collection-info {
                 flex: 1 0 0;
@@ -59,6 +64,23 @@
                     }
                     padding-top: 5px;
                     font-size: 13px;
+                }
+            }
+            .collection-actions {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex: 0 0 70px;
+                &:hover {
+                    cursor: pointer;
+                    color: teal;
+                }
+                .action-text {
+                    font-size: 13px;
+                    flex: 1;
+                }
+                .action-icon {
+                    font-size: 15px;
                 }
             }
         }
