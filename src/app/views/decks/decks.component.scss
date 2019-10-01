@@ -15,19 +15,42 @@
         display: flex;
         flex: 0 0 55px;
         margin: auto 10px;
-        .label-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            flex-basis: 120px;
-            align-content: center;
-            .label {
-                color: gray;
-                font-weight: bold;
-                font-size: 13px;
+        .summary-data {
+            display:flex;
+            flex: 1 0 0;
+            .label-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                flex-basis: 120px;
+                align-content: center;
+                .label {
+                    color: gray;
+                    font-weight: bold;
+                    font-size: 13px;
+                }
+                .info {
+                    font-size: 15px;
+                }
             }
-            .info {
-                font-size: 15px;
+        }
+        .action {
+            & > i {
+                width: 24px;
+                padding-left: 3px;
+            }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            flex: 0 0 45px;
+            height: 45px;
+            font-size: 24px;
+            border-radius: 40px;
+            color: teal;
+            &:hover {
+                background-color: gainsboro;
+                cursor: pointer;
             }
         }
     }
@@ -40,6 +63,7 @@
             padding-bottom: 6px;
             &:hover {
                 background-color: lighten($color: gainsboro, $amount: 8);
+                cursor: pointer;
             }
             .collection-image {
                 &>img {
@@ -72,7 +96,6 @@
                 align-items: center;
                 flex: 0 0 70px;
                 &:hover {
-                    cursor: pointer;
                     color: teal;
                 }
                 .action-text {

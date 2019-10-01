@@ -4,13 +4,18 @@
         summary: decksSummary$ | async
     } as data">
         <div class="summary" *ngIf="data.summary">
-            <div class="label-info">
-                <div class="label">Total:</div>
-                <div class="info">{{data.summary.cardCount}} cards</div>
+            <div class="summary-data">
+                <div class="label-info">
+                    <div class="label">Total:</div>
+                    <div class="info">{{data.summary.cardCount}} cards</div>
+                </div>
+                <div class="label-info">
+                    <div class="label">Last Studied:</div>
+                    <div class="info">{{data.summary.lastStudied}}</div>
+                </div>
             </div>
-            <div class="label-info">
-                <div class="label">Last Studied:</div>
-                <div class="info">{{data.summary.lastStudied}}</div>
+            <div class="action">
+                <i class="fas fa-plus"></i>
             </div>
         </div>
         <div class="collection-cont" *ngIf="data.summary">
