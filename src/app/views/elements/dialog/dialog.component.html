@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+    <div *ngFor="let field of data.fields; let ind = index">
+        <div>{{field.label}}:</div>
+        <mat-form-field>
+            <input matInput [(ngModel)]="values[ind]">
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="values" cdkFocusInitial>Create</button>
+</div>

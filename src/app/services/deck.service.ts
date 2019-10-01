@@ -13,12 +13,17 @@ export class DeckService {
       private http: HttpClient,
       private store: Store<{decksSummary: DecksSummary}>
    ) { }
-   getDeckCards (deckId): Observable<Card> {
+   getDeckCards (deckId:string): Observable<Card> {
       let url = `${fpDomain}/deck/${deckId}`
       return this.http.get(url).pipe(map(response => response as Card))
    }
-   getUserDecks (userId): Observable<Deck[]> {
+   getUserDecks (userId:string): Observable<Deck[]> {
       let url = `${fpDomain}/user/${userId}`
       return this.http.get(url).pipe(map(response => response as Deck[]))
+   }
+   createDeck (deckName:string, userId:string) {
+      let deckKey = deckName.toLowerCase().split(' ').join('_')
+      let url = `${fpDomain}/deck/`
+      return this.http.put(url,{userId: userId, deckId: `${userId}#${deckKey}`, deckName: deckName})
    }
 }

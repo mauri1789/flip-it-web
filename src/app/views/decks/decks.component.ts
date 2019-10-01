@@ -4,6 +4,8 @@ import { Deck, DecksSummary } from '../../store.models';
 import { Store, select } from "@ngrx/store";
 import { Observable } from 'rxjs';
 import { loadDecks } from "../../actions/deck.actions";
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../elements/dialog/dialog.component';
 
 @Component({
   selector: 'app-decks',
@@ -12,15 +14,34 @@ import { loadDecks } from "../../actions/deck.actions";
 })
 export class DecksComponent implements OnInit {
    decksSummary$: Observable<DecksSummary>
+   userId: string;
    constructor(
       private deckService:DeckService,
-      private store: Store<{decksSummary: DecksSummary}>
+      private store: Store<{decksSummary: DecksSummary}>,
+      public dialog: MatDialog
    ) {
       this.decksSummary$ = store.pipe(select('decksSummary'))
+      this.userId = "mau"
    }
 
    ngOnInit() {
-      this.store.dispatch(loadDecks({userId: "mau"}))
+      this.store.dispatch(loadDecks({userId: this.userId}))
    }
-
+   addDeck () {
+      const dialogRef = this.dialog.open(DialogComponent, {
+         width: '250px',
+         data: {title: "New Deck", fields: [
+            {
+               label: "Deck Name",
+               multiline: false
+            }
+         ]}
+      });
+      dialogRef.afterClosed().subscribe((values=[]) => {
+         let [deckName] = values
+         if (deckName) {
+            // this.deckService.createDeck(deckName, this.userId).subscribe(x => console.log(x))
+         }
+      })
+   }
 }
