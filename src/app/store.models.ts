@@ -5,6 +5,10 @@ interface DecksSummary {
     lastStudied?: string
     decks?: Deck[]
 }
+interface CardsSummary {
+    deckName: string
+    cards: Card[]
+}
 interface Deck {
     deckName: string
     cardCount: number
@@ -12,12 +16,13 @@ interface Deck {
     lastStudied: string
 }
 interface Card {
-    front: string;
-    back: string;
+    front: string
+    back: string
 }
 
 export {
     DecksSummary,
+    CardsSummary,
     Deck,
     Card
 }

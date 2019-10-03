@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from "@angular/router";
-import { switchMap } from "rxjs/operators";
+import { switchMap, map } from "rxjs/operators";
+import { CardService } from "../../services/card.service";
 
 @Component({
   selector: 'app-cards',
@@ -9,17 +10,22 @@ import { switchMap } from "rxjs/operators";
 })
 export class CardsComponent implements OnInit {
   deckCards$;
+  userId:string;
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cardService: CardService
   ) {
+    this.userId = 'mau'
     this.deckCards$ = this.route.paramMap.pipe(
-      // switchMap((params: ParamMap) =>
-      //   httpcall
+      map((params:ParamMap) => params.get('deckId')),
+      switchMap((deckId: string) =>
+        this.cardService.getDeckCards(this.userId, deckId)
+      )
     )
   }
 
   ngOnInit() {
-    this.deckCards$.subscribe(param => console.log(param.get('deckId')))
+    this.deckCards$.subscribe(cardSummary => console.log(cardSummary))
   }
 
 }

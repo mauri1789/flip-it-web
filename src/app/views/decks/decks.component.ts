@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { loadDecks } from "../../actions/deck.actions";
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../elements/dialog/dialog.component';
-import { mergeMap, map } from 'rxjs/operators';
+import { mergeMap, map, tap } from 'rxjs/operators';
 import { Router } from "@angular/router";
 
 @Component({
@@ -42,7 +42,7 @@ export class DecksComponent implements OnInit {
       });
       dialogRef.afterClosed()
          .pipe(
-            map((data = []) => data.deckName),
+            map((data = []) => data.pop()),
             mergeMap(deckName => this.deckService.createDeck(deckName, this.userId))
          ).subscribe(() => this.store.dispatch(loadDecks({userId: this.userId})))
    }
