@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { loadDecks } from "../../actions/deck.actions";
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../elements/dialog/dialog.component';
+import { mergeMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-decks',
@@ -37,11 +38,10 @@ export class DecksComponent implements OnInit {
             }
          ]}
       });
-      dialogRef.afterClosed().subscribe((values=[]) => {
-         let [deckName] = values
-         if (deckName) {
-            // this.deckService.createDeck(deckName, this.userId).subscribe(x => console.log(x))
-         }
-      })
+      dialogRef.afterClosed()
+         .pipe(
+            map(([deckName] = []) => deckName),
+            mergeMap(deckName => this.deckService.createDeck(deckName, this.userId))
+         ).subscribe(() => this.store.dispatch(loadDecks({userId: this.userId})))
    }
 }

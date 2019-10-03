@@ -24,6 +24,13 @@ export class DeckService {
    createDeck (deckName:string, userId:string) {
       let deckKey = deckName.toLowerCase().split(' ').join('_')
       let url = `${fpDomain}/deck/`
-      return this.http.put(url,{userId: userId, deckId: `${userId}#${deckKey}`, deckName: deckName})
+      return this.http.put(url,
+         {
+            userId: userId,
+            deckId: `${userId}#${deckKey}`,
+            deckName: deckName,
+            cardCount: 0
+         }
+      )
    }
 }
