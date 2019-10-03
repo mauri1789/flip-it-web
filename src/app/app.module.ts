@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { DecksComponent } from './views/decks/decks.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { DialogComponent } from './views/elements/dialog/dialog.component';
+import { CardsComponent } from './views/cards/cards.component';
 
 let MATERIAL_MODULES = [
   MatMenuModule,
@@ -35,7 +36,8 @@ let MATERIAL_MODULES = [
     AppComponent,
     DecksComponent,
     DashboardComponent,
-    DialogComponent
+    DialogComponent,
+    CardsComponent
   ],
   entryComponents: [DialogComponent],
   imports: [

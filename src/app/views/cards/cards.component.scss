@@ -1,0 +1,13 @@
+.cards-container {
+    display: flex;
+    .title {
+        flex: 0 0 70px;
+        font-size: 22px;
+        font-weight: bold;
+        margin: auto 10px;
+    }
+    .cards {
+        flex: 1 0 0;
+        
+    }
+}

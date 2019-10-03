@@ -7,6 +7,7 @@ import { loadDecks } from "../../actions/deck.actions";
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../elements/dialog/dialog.component';
 import { mergeMap, map } from 'rxjs/operators';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-decks',
@@ -19,7 +20,8 @@ export class DecksComponent implements OnInit {
    constructor(
       private deckService:DeckService,
       private store: Store<{decksSummary: DecksSummary}>,
-      public dialog: MatDialog
+      public dialog: MatDialog,
+      private router: Router
    ) {
       this.decksSummary$ = store.pipe(select('decksSummary'))
       this.userId = "mau"
@@ -40,8 +42,12 @@ export class DecksComponent implements OnInit {
       });
       dialogRef.afterClosed()
          .pipe(
-            map(([deckName] = []) => deckName),
+            map((data = []) => data.deckName),
             mergeMap(deckName => this.deckService.createDeck(deckName, this.userId))
          ).subscribe(() => this.store.dispatch(loadDecks({userId: this.userId})))
+   }
+   goToDeck (deckKey:string) {
+      let [,deck] = deckKey.substring(5).split("#")
+      this.router.navigate([`deck`, deck])
    }
 }
