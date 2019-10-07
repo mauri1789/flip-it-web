@@ -1,8 +1,30 @@
 <div class="main-container cards-container">
-    <div class="title">
-
-    </div>
-    <div class="cards">
-        cards
-    </div>
+   <ng-container *ngIf="cardsSummary$ | async as cardsSummary">
+      <div class="cards-header">
+         <div class="title">
+            {{cardsSummary.deckName}}
+         </div>
+         <div class="options">
+            <div class="delete">
+               <div>
+                  <i class="fas fa-trash-alt"></i>
+               </div>
+               <div>
+                  delete
+               </div>
+            </div>
+            <div class="study">
+               <div>
+                  <i class="fas fa-book-reader"></i>
+               </div>
+               <div>
+                  study
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="cards">
+         cards
+      </div>
+   </ng-container>
 </div>

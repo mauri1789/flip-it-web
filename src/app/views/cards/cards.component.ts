@@ -13,7 +13,7 @@ import { loadCards } from '../../actions/card.actions';
   styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit {
-  cards$: Observable<CardsSummary>
+  cardsSummary$: Observable<CardsSummary>
   deckId$: Observable<string>;
   userId:string;
   constructor(
@@ -25,14 +25,13 @@ export class CardsComponent implements OnInit {
     this.deckId$ = this.route.paramMap.pipe(
       map((params:ParamMap) => params.get('deckId'))
     )
-    this.cards$ = store.pipe(select('cardsSummary'))
+    this.cardsSummary$ = store.pipe(select('cardsSummary'))
   }
 
   ngOnInit() {
     this.deckId$.subscribe(deckId => 
       this.store.dispatch(loadCards({userId: this.userId, deckId: deckId}))
     )
-    this.cards$.subscribe(x => console.log(x))
   }
 
 }
