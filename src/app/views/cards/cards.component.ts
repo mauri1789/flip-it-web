@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from "@angular/router";
+import { Store, select } from "@ngrx/store";
 import { switchMap, map } from "rxjs/operators";
+import { Observable } from 'rxjs';
 import { CardService } from "../../services/card.service";
+import { CardsSummary } from '../../store.models';
+import { loadCards } from '../../actions/card.actions';
 
 @Component({
   selector: 'app-cards',
@@ -9,23 +13,26 @@ import { CardService } from "../../services/card.service";
   styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit {
-  deckCards$;
+  cards$: Observable<CardsSummary>
+  deckId$: Observable<string>;
   userId:string;
   constructor(
     private route: ActivatedRoute,
-    private cardService: CardService
+    private cardService: CardService,
+    private store: Store<{cardsSummary: CardsSummary}>
   ) {
     this.userId = 'mau'
-    this.deckCards$ = this.route.paramMap.pipe(
-      map((params:ParamMap) => params.get('deckId')),
-      switchMap((deckId: string) =>
-        this.cardService.getDeckCards(this.userId, deckId)
-      )
+    this.deckId$ = this.route.paramMap.pipe(
+      map((params:ParamMap) => params.get('deckId'))
     )
+    this.cards$ = store.pipe(select('cardsSummary'))
   }
 
   ngOnInit() {
-    this.deckCards$.subscribe(cardSummary => console.log(cardSummary))
+    this.deckId$.subscribe(deckId => 
+      this.store.dispatch(loadCards({userId: this.userId, deckId: deckId}))
+    )
+    this.cards$.subscribe(x => console.log(x))
   }
 
 }

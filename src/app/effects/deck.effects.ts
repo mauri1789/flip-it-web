@@ -3,9 +3,8 @@ import { Store } from "@ngrx/store";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 
-import { loadDecks } from "../actions/deck.actions";
 import { DeckService } from "../services/deck.service";
-import { setDecks } from "../actions/deck.actions";
+import { setDecks, loadDecks } from "../actions/deck.actions";
 
 @Injectable()
 export class DeckEffects {

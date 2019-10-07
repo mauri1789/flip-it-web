@@ -13,7 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { deckReducer } from "./reducers/deck.reducer";
+import { cardReducer } from "./reducers/card.reducer";
 import { DeckEffects } from "./effects/deck.effects";
+import { CardEffects } from "./effects/card.effects";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,10 +50,12 @@ let MATERIAL_MODULES = [
     HttpClientModule,
     MATERIAL_MODULES,
     StoreModule.forRoot({
-      decksSummary: deckReducer
+      decksSummary: deckReducer,
+      cardsSummary: cardReducer
     }),
     EffectsModule.forRoot([
-      DeckEffects
+      DeckEffects,
+      CardEffects
     ])
   ],
   providers: [],
