@@ -18,6 +18,8 @@ interface Deck {
 interface Card {
     front: string
     back: string
+    pk?: string
+    sk?: string
 }
 
 export {

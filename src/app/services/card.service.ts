@@ -15,4 +15,9 @@ export class CardService {
       let url = ['deck', `${userId}-${deckId}`]
       return this.requestService.get<CardsSummary>(url)
    }
+   deleteCard (cardId:string, deckId:string) {
+      deckId = deckId.split("#").join("-")
+      let url = ['deck', deckId, 'card', cardId]
+      return this.requestService.delete(url)
+   }
 }
