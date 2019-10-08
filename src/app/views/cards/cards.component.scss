@@ -24,17 +24,14 @@
                 text-align: center;
                 flex: 1 0 0;
             }
-            .delete {
-                &:hover {
-                    cursor: pointer;
-                    color: firebrick;
-                }
+            .delete:hover {
+                cursor: pointer;
+                color: firebrick;
             }
-            .study {
-                &:hover {
-                    cursor: pointer;
-                    color: teal;
-                }
+            .add:hover,
+            .study:hover {
+                cursor: pointer;
+                color: teal;
             }
         }
     }

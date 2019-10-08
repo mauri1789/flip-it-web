@@ -3,7 +3,17 @@
     <div *ngFor="let field of data.fields; let ind = index">
         <div>{{field.label}}:</div>
         <mat-form-field>
-            <input matInput [(ngModel)]="values[ind]">
+            <textarea
+                *ngIf="field.multiline"
+                matInput
+                [(ngModel)]="values[ind]"
+                rows="4"
+            ></textarea>
+            <input
+            *ngIf="!field.multiline"
+            matInput
+            [(ngModel)]="values[ind]"
+            >
         </mat-form-field>
     </div>
 </div>
