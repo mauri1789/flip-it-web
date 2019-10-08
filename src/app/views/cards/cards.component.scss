@@ -39,8 +39,46 @@
         }
     }
     .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
         flex: 1 0 0;
         margin: auto 10px;
-        
+        .card {
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 300px;
+            height: 100px;
+            max-width: 500px;
+            margin: 5px;
+            border: 1px solid gainsboro;
+            border-radius: 2px;
+            .card-header {
+                display: flex;
+                flex: 0 0 20px;
+                justify-content: flex-end;
+                align-items: center;
+                color: gray;
+                font-size: 14px;
+                background-color: lighten($color: lightsteelblue, $amount: 12);
+                >i {
+                    padding-right: 8px;
+                    padding-left: 8px;
+                }
+                .fas:hover {
+                    cursor: pointer;
+                }
+                .fa-pencil-alt:hover {
+                    color: teal;
+                }
+                .fa-times:hover {
+                    color: firebrick;
+                }
+            }
+            .card-back,
+            .card-front {
+                flex: 1 0 0;
+            }
+        }
     }
 }
