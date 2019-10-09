@@ -6,8 +6,10 @@ import { Observable, zip, of } from 'rxjs';
 import { DialogComponent } from '../elements/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CardService } from "../../services/card.service";
+import { DeckService } from "../../services/deck.service";
 import { CardsSummary, Card } from '../../store.models';
 import { loadCards } from '../../actions/card.actions';
+import { Router } from "@angular/router";
 
 @Component({
    selector: 'app-cards',
@@ -17,10 +19,13 @@ import { loadCards } from '../../actions/card.actions';
 export class CardsComponent implements OnInit {
    cardsSummary$: Observable<CardsSummary>
    deckId$: Observable<string>;
+   deckId: string;
    userId:string;
    constructor(
       private route: ActivatedRoute,
       private cardService: CardService,
+      private deckService: DeckService,
+      private router: Router,
       public dialog: MatDialog,
       private store: Store<{cardsSummary: CardsSummary}>
    ) {
@@ -47,11 +52,17 @@ export class CardsComponent implements OnInit {
    loadCardList() {
       return (
          this.deckId$.pipe(
+            tap((deckId) => this.deckId = deckId),
             tap((deckId) =>
                this.store.dispatch(loadCards({userId: this.userId, deckId: deckId}))
             )
          )
       )
+   }
+   deleteDeck () {
+      this.deckService
+         .deleteDeck(this.deckId, this.userId)
+         .subscribe(() => this.router.navigate([`decks`]))
    }
    addCard () {
       const dialogRef = this.dialog.open(DialogComponent, {

@@ -12,7 +12,8 @@ export class CardService {
       private requestService: RequestService
    ) { }
    getDeckCards(userId:string, deckId:string): Observable<CardsSummary> {
-      let url = ['deck', `${userId}-${deckId}`]
+      let deckKey = `${userId}-${deckId}`
+      let url = ['deck', deckKey]
       return this.requestService.get<CardsSummary>(url)
    }
    deleteCard (cardId:string, deckKey:string) {

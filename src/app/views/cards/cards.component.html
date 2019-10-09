@@ -5,7 +5,9 @@
             {{cardsSummary.deckName}}
          </div>
          <div class="options">
-            <div class="delete">
+            <div
+               (click)="deleteDeck()"
+               class="delete">
                <div>
                   <i class="fas fa-trash-alt"></i>
                </div>

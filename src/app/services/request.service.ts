@@ -21,9 +21,9 @@ export class RequestService {
       let fullUrl = this.getFullUrl(url)
       return this.http.put(fullUrl, body)
    }
-   delete(url: Array<string>, body?) {
+   delete(url: Array<string>) {
       let fullUrl = this.getFullUrl(url);
-      return this.http.delete(fullUrl, body || {})
+      return this.http.delete(fullUrl)
    }
    getFullUrl (url) {
       url.unshift(fpDomain)
