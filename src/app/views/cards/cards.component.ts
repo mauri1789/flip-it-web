@@ -60,9 +60,10 @@ export class CardsComponent implements OnInit {
       )
    }
    deleteDeck () {
-      this.deckService
-         .deleteDeck(this.deckId, this.userId)
-         .subscribe(() => this.router.navigate([`decks`]))
+      let deleteAction = this.openDeleteDeck()
+      deleteAction.pipe(
+         mergeMap(() => this.deckService.deleteDeck(this.deckId, this.userId))
+      ).subscribe(() => this.router.navigate([`decks`]))
    }
    addCard () {
       let newCard = this.openNewCardDialog()
@@ -79,6 +80,22 @@ export class CardsComponent implements OnInit {
          ),
          mergeMap(() => this.loadCardList())
       ).subscribe()
+   }
+   openDeleteDeck() {
+      const dialogRef = this.dialog.open(DialogComponent, {
+         width: '250px',
+         data: {
+            title: "Delete Card",
+            text: `Are you sure you want to delete ${this.deckId}?`,
+            action: "Delete",
+            fields: []
+         }
+      });
+      let deleteAction = dialogRef.afterClosed()
+         .pipe(
+            filter((data) => data != null)
+         )
+      return deleteAction
    }
    openNewCardDialog() {
       const dialogRef = this.dialog.open(DialogComponent, {
