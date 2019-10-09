@@ -65,6 +65,22 @@ export class CardsComponent implements OnInit {
          .subscribe(() => this.router.navigate([`decks`]))
    }
    addCard () {
+      let newCard = this.openNewCardDialog()
+      newCard.pipe(
+         mergeMap(([front, back]) =>
+            this.cardService.createCard(
+               this.userId,
+               this.deckId,
+               {
+                  front,
+                  back,
+                  userId: this.userId
+               })
+         ),
+         mergeMap(() => this.loadCardList())
+      ).subscribe()
+   }
+   openNewCardDialog() {
       const dialogRef = this.dialog.open(DialogComponent, {
          width: '250px',
          data: {title: "New Card", fields: [
@@ -82,18 +98,6 @@ export class CardsComponent implements OnInit {
          .pipe(
             filter(([front, back]) => front != "" && back != ""),
          )
-      newCard.pipe(
-         mergeMap(([front, back]) =>
-            this.cardService.createCard(
-               this.userId,
-               this.deckId,
-               {
-                  front,
-                  back,
-                  userId: this.userId
-               })
-         ),
-         mergeMap(() => this.loadCardList())
-      ).subscribe()
+      return newCard
    }
 }
