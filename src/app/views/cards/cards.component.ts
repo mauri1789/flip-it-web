@@ -82,13 +82,16 @@ export class CardsComponent implements OnInit {
          .pipe(
             filter(([front, back]) => front != "" && back != ""),
          )
-      zip(
-         of(this.userId),
-         this.deckId$,
-         newCard
-      ).pipe(
-         mergeMap(([userId, deckId, [front, back]]) =>
-            this.cardService.createCard(this.userId, deckId, {front, back, userId})
+      newCard.pipe(
+         mergeMap(([front, back]) =>
+            this.cardService.createCard(
+               this.userId,
+               this.deckId,
+               {
+                  front,
+                  back,
+                  userId: this.userId
+               })
          ),
          mergeMap(() => this.loadCardList())
       ).subscribe()
