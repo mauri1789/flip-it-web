@@ -37,9 +37,11 @@
       </div>
       <div class="cards">
          <div
-            *ngFor="let card of cardsSummary.cards"
+            *ngFor="let card of cardsSummary.cards; let ind = index"
             class="card">
-            <div class="card-header">
+            <div
+               (click)="editCard(ind)"
+               class="card-header">
                <i class="fas fa-pencil-alt"></i>
                <i
                   class="fas fa-trash-alt"
@@ -52,6 +54,7 @@
                </div>
                <div class="content">
                   {{card.front}}
+                  {{card.editable}}
                </div>
             </div>
             <div class="card-back">

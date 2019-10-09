@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CardService } from "../../services/card.service";
 import { DeckService } from "../../services/deck.service";
 import { CardsSummary, Card } from '../../store.models';
-import { loadCards } from '../../actions/card.actions';
+import { loadCards, setEditable } from '../../actions/card.actions';
 import { Router } from "@angular/router";
 
 @Component({
@@ -80,6 +80,9 @@ export class CardsComponent implements OnInit {
          ),
          mergeMap(() => this.loadCardList())
       ).subscribe()
+   }
+   editCard(index) {
+      this.store.dispatch(setEditable({cardIndex: index, editable: true}))
    }
    openDeleteDeck() {
       const dialogRef = this.dialog.open(DialogComponent, {
