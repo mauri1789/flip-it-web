@@ -2,6 +2,7 @@
 @include view-cont;
 .decks-container {
     display:flex;
+    height: 100%;
     flex-direction: column;
     .title {
         display: flex;
@@ -53,6 +54,12 @@
                 cursor: pointer;
             }
         }
+    }
+    .no-data-cont {
+        @include no-data-message;
+    }
+    .loading-cont{
+        @include loading-icon;
     }
     .collection-cont {
         margin: auto 10px;

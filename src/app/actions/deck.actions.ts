@@ -5,11 +5,14 @@ const setDecks = createAction('[Deck Component] setDecks', props<{decksSummary: 
 const addDeck = createAction('[Deck Component] addDeck', props<Deck>())
 const deleteDeck = createAction('[Deck Component] deleteDeck', props<Deck>())
 
+const loadingDecks = createAction('[Deck Component] loadingDecks')
+
 const loadDecks = createAction('[Deck API Request] loadDecks', props<{userId: string}>())
 
 export {
     setDecks,
     addDeck,
     deleteDeck,
-    loadDecks
+    loadDecks,
+    loadingDecks
 }
