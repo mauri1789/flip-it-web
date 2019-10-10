@@ -27,7 +27,7 @@ export class DeckService {
       return this.requestService.put(url, body)
    }
    deleteDeck (deckId: string, userId:string) {
-      let deckKey = `${userId}#${deckId}`
+      let deckKey = `${userId}-${deckId}`
       let url = ['deck', deckKey];
       return this.requestService.delete(url)
    }
