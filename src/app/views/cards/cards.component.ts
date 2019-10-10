@@ -10,6 +10,7 @@ import { DeckService } from "../../services/deck.service";
 import { CardsSummary, Card } from '../../store.models';
 import { loadCards, setEditable } from '../../actions/card.actions';
 import { Router } from "@angular/router";
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
    selector: 'app-cards',
@@ -21,6 +22,7 @@ export class CardsComponent implements OnInit {
    deckId$: Observable<string>;
    deckId: string;
    userId:string;
+   cardForm: FormGroup;
    constructor(
       private route: ActivatedRoute,
       private cardService: CardService,
@@ -81,7 +83,11 @@ export class CardsComponent implements OnInit {
          mergeMap(() => this.loadCardList())
       ).subscribe()
    }
-   editCard(index) {
+   editCard(index: number, card: Card) {
+      this.cardForm = new FormGroup({
+         front: new FormControl(card.front),
+         back: new FormControl(card.back)
+      })
       this.store.dispatch(setEditable({cardIndex: index, editable: true}))
    }
    openDeleteDeck() {

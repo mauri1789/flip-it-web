@@ -46,7 +46,7 @@
             *ngFor="let card of cardsSummary.cards; let ind = index"
             class="card">
             <div
-               (click)="editCard(ind)"
+               (click)="editCard(ind, card)"
                class="card-header">
                <i class="fas fa-pencil-alt"></i>
                <i
@@ -54,16 +54,15 @@
                   (click)="deleteCard(card)"
                ></i>
             </div>
-            <div class="card-front">
+            <div class="card-front" *ngIf="!card.editable">
                <div class="title">
                   Front:
                </div>
                <div class="content">
                   {{card.front}}
-                  {{card.editable}}
                </div>
             </div>
-            <div class="card-back">
+            <div class="card-back" *ngIf="!card.editable">
                <div class="title">
                   Back:
                </div>
@@ -71,6 +70,33 @@
                   {{card.back}}
                </div>
             </div>
+            <form
+               [formGroup]="cardForm"
+               *ngIf="card.editable"
+               class="card-form">
+               <div class="card-front">
+                  <div class="title">
+                     Front:
+                  </div>
+                  <div class="content">
+                     <textarea
+                        type="text"
+                        formControlName="front">
+                     </textarea>
+                  </div>
+               </div>
+               <div class="card-back">
+                  <div class="title">
+                     Back:
+                  </div>
+                  <div class="content">
+                        <textarea
+                        type="text"
+                        formControlName="back">
+                     </textarea>
+                  </div>
+               </div>
+            </form>
          </div>
       </div>
    </ng-container>

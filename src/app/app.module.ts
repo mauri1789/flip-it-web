@@ -18,6 +18,7 @@ import { DeckEffects } from "./effects/deck.effects";
 import { CardEffects } from "./effects/card.effects";
 
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { DecksComponent } from './views/decks/decks.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
@@ -47,6 +48,7 @@ let MATERIAL_MODULES = [
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MATERIAL_MODULES,
     StoreModule.forRoot({

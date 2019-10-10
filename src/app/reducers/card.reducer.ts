@@ -11,6 +11,10 @@ const _cardReducer = createReducer(
    initialState,
    on(setCards, (_, payload) => payload),
    on(setEditable, (state, {cardIndex, editable = true}) => {
+      state.cards.map(card => {
+         card.editable = false
+         return card
+      })
       state.cards[cardIndex].editable = editable
       return {...state}
    }),
