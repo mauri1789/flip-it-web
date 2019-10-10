@@ -4,7 +4,7 @@ import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 
 import { CardService } from "../services/card.service";
-import { setCards, loadCards } from "../actions/card.actions";
+import { setCards, loadCards, loadingCards } from "../actions/card.actions";
 
 @Injectable()
 export class CardEffects {
@@ -17,10 +17,11 @@ export class CardEffects {
       this.loadCardsSummary$ = createEffect(() =>
          this.actions$.pipe(
             ofType(loadCards),
+            tap(() => this.store.dispatch(loadingCards())),
             exhaustMap(action =>
                   this.cardService.getDeckCards(action.userId, action.deckId).pipe(
                      map(cardsData => setCards(cardsData)),
-                     tap((action) => store.dispatch(action))
+                     tap((action) => this.store.dispatch(action))
                   )
             )
          )

@@ -35,7 +35,13 @@
             </div>
          </div>
       </div>
-      <div class="cards">
+      <div class="no-data-cont" *ngIf="cardsSummary.cards && cardsSummary.cards.length == 0">
+         No cards found for this deck
+      </div>
+      <div class="loading-cont" *ngIf="cardsSummary.cards == null">
+            <div><i class="fas fa-spinner fa-pulse"></i></div>
+      </div>
+      <div class="cards" *ngIf="cardsSummary.cards && cardsSummary.cards.length > 0">
          <div
             *ngFor="let card of cardsSummary.cards; let ind = index"
             class="card">

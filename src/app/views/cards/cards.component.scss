@@ -35,6 +35,12 @@
             }
         }
     }
+    .no-data-cont {
+        @include no-data-message;
+    }
+    .loading-cont{
+        @include loading-icon;
+    }
     .cards {
         display: flex;
         flex-wrap: wrap;
