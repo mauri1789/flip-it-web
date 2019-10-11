@@ -126,4 +126,16 @@ export class CardsComponent implements OnInit {
          )
       return newCard
    }
+   cancelEditCard (index: number) {
+      this.store.dispatch(setEditable({cardIndex: index, editable: false}))
+   }
+   saveCard (card: Card) {
+      card.front = this.cardForm.get("front").value
+      card.back = this.cardForm.get("back").value
+      this.cardService.saveCard(this.userId, card)
+         .pipe(
+            mergeMap(() => this.loadCardList())
+         )
+         .subscribe()
+   }
 }

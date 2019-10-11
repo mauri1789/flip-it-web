@@ -64,18 +64,22 @@
                 color: gray;
                 font-size: 14px;
                 background-color: lighten($color: lightsteelblue, $amount: 12);
+                >div,
                 >i {
                     padding-right: 8px;
                     padding-left: 8px;
-                }
-                .fas:hover {
                     cursor: pointer;
                 }
+                .save-confirm:hover,
                 .fa-pencil-alt:hover {
                     color: teal;
+                    font-weight: bold;
+                    padding-left: 7px;
                 }
+                .save-cancel:hover,
                 .fa-trash-alt:hover {
                     color: firebrick;
+                    font-weight: bold;
                 }
             }
             .card-back,

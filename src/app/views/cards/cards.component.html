@@ -45,14 +45,28 @@
          <div
             *ngFor="let card of cardsSummary.cards; let ind = index"
             class="card">
-            <div
-               (click)="editCard(ind, card)"
-               class="card-header">
-               <i class="fas fa-pencil-alt"></i>
+            <div class="card-header">
+               <i
+                  class="fas fa-pencil-alt"
+                  (click)="editCard(ind, card)"
+                  *ngIf="!card.editable"></i>
                <i
                   class="fas fa-trash-alt"
                   (click)="deleteCard(card)"
+                  *ngIf="!card.editable"
                ></i>
+               <div
+                  class="save-cancel"
+                  (click)="cancelEditCard(ind)"
+                  *ngIf="card.editable">
+                  cancel <i class="fas fa-times"></i>
+               </div>
+               <div
+                  class="save-confirm"
+                  (click)="saveCard(card)"
+                  *ngIf="card.editable">
+                  save <i class="fas fa-check"></i>
+               </div>
             </div>
             <div class="card-front" *ngIf="!card.editable">
                <div class="title">
