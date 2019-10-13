@@ -1,0 +1,95 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: s3 web hosting for flip it app
+
+Parameters:
+  S3Bucket:
+    Type: String
+    Description: The name of the S3 bucket in which packaged code is stored
+  DomainName:
+    Type: String
+    Description: Domain Name
+  Certificate:
+    Type: String
+    Description: ACM Certificate
+  HostedZoneId:
+    Type: String
+    Description: Hosted Zone
+
+Resources:
+  FlipSiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref DomainName
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+    DeletionPolicy: Retain
+
+  FlipSiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref FlipSiteBucket
+      PolicyDocument:
+        Statement:
+        - Sid: PublicReadForGetBucketObjects
+          Effect: Allow
+          Principal: '*'
+          Action: s3:GetObject
+          Resource: !Join ['', ['arn:aws:s3:::', !Ref FlipSiteBucket, /*]]
+
+  FlipSiteCloudfront:
+    Type: AWS::CloudFront::Distribution
+    DependsOn:
+    - FlipSiteBucket
+    Properties:
+      DistributionConfig:
+        Comment: Cloudfront Distribution pointing to S3 bucket
+        Origins:
+        - DomainName: !Select [2, !Split ["/", !GetAtt FlipSiteBucket.WebsiteURL]]
+          Id: S3Origin
+          CustomOriginConfig:
+            HTTPPort: '80'
+            HTTPSPort: '443'
+            OriginProtocolPolicy: http-only
+        Enabled: true
+        HttpVersion: 'http2'
+        DefaultRootObject: index.html
+        Aliases:
+        - !Ref DomainName
+        DefaultCacheBehavior:
+          AllowedMethods:
+          - GET
+          - HEAD
+          Compress: true
+          TargetOriginId: S3Origin
+          ForwardedValues:
+            QueryString: true
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        PriceClass: PriceClass_All
+        ViewerCertificate:
+          AcmCertificateArn: !Ref Certificate
+          SslSupportMethod: sni-only
+
+  FlipWebCustomDomain:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      DomainName: !Ref DomainName
+      EndpointConfiguration:
+        Types:
+          - "EDGE"
+      CertificateArn: !Ref Certificate
+
+  FlipSiteDNSName:
+    Type: AWS::Route53::RecordSetGroup
+    DependsOn: FlipWebCustomDomain
+    Properties:
+      HostedZoneName: !Ref HostedZoneId
+      RecordSets:
+      - Name: !Ref DomainName
+        Type: A
+        AliasTarget:
+          HostedZoneId: !GetAtt FlipWebCustomDomain.DistributionHostedZoneId
+          DNSName: !GetAtt FlipWebCustomDomain.DistributionDomainName
