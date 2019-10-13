@@ -4,7 +4,7 @@ import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 
 import { DeckService } from "../services/deck.service";
-import { setDecks, loadDecks } from "../actions/deck.actions";
+import { loadingDecks, loadDecks, setDecks } from "../actions/deck.actions";
 
 @Injectable()
 export class DeckEffects {
@@ -17,6 +17,7 @@ export class DeckEffects {
       this.loadDecksSummary$ = createEffect(() =>
          this.actions$.pipe(
             ofType(loadDecks),
+            tap(() => store.dispatch(loadingDecks())),
             exhaustMap(action =>
                   this.deckService.getUserDecks(action.userId).pipe(
                      map(deckList => ({

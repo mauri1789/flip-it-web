@@ -1,18 +1,29 @@
 import { createReducer, on, Action } from "@ngrx/store";
-import { setCards, setEditable } from "../actions/card.actions";
+import { setCards, setEditable, loadingCards } from "../actions/card.actions";
 import { CardsSummary } from "../store.models";
 
-export const initialState = null
+export const initialState = {
+   deckName: '--',
+   cards: null
+}
 
 const _cardReducer = createReducer(
    initialState,
    on(setCards, (_, payload) => payload),
    on(setEditable, (state, {cardIndex, editable = true}) => {
+      state.cards.map(card => {
+         card.editable = false
+         return card
+      })
       state.cards[cardIndex].editable = editable
+      return {...state}
+   }),
+   on(loadingCards, (state,_) => {
+      state.cards = null
       return {...state}
    })
 )
 
-export function cardReducer(state: CardsSummary | null, action:Action) {
+export function cardReducer(state: CardsSummary, action:Action) {
    return _cardReducer(state, action)
 }

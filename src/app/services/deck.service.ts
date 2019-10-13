@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Deck  } from '../store.models';
 import { RequestService } from "./request.service";
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from "./request.service";
-import { Observable } from 'rxjs';
-import { CardsSummary } from '../store.models';
+import { Observable, of } from 'rxjs';
+import { CardsSummary, Card } from '../store.models';
 
 @Injectable({
    providedIn: 'root'
@@ -24,5 +24,18 @@ export class CardService {
    createCard(userId, deckId, data) {
       let url = ['deck', `${userId}-${deckId}`, 'card']
       return this.requestService.put(url, data)
+   }
+   saveCard(userId:string, card: Card) {
+      let [,cardId] = card.sk.split(":")
+      let [,deckKey] = card.pk.split(":")
+      let body = {
+         userId,
+         cardId,
+         front: card.front,
+         back: card.back
+      }
+      deckKey = deckKey.split("#").join("-")
+      let url = ['deck', deckKey, 'card']
+      return this.requestService.put(url, body)
    }
 }
