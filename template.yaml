@@ -5,7 +5,7 @@ Description: s3 web hosting for flip it app
 Parameters:
   S3Bucket:
     Type: String
-    Description: The name of the S3 bucket in which packaged code is stored
+    Description: The name of the S3 bucket in which static website is stored
   DomainName:
     Type: String
     Description: Domain Name
