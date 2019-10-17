@@ -25,6 +25,8 @@ You'll need to set up your credentials with aws-cli and set the values for the d
 Run `npm run create` to create a static website in S3 with a cloudfront distribution and a custom Domain Name.
 It usually takes about 15 min.
 
+![aws_diagram](https://user-images.githubusercontent.com/16513413/67048324-06556880-f102-11e9-8ac7-e8b97b5234d3.png)
+
 Run `npm run deploy` to create a production build and push it to S3.
 At this point you should be able to visit your domain name and the site should be deployed.
 
