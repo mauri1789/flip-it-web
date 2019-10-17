@@ -1,27 +1,33 @@
-# BluebirdWeb
+# Flip it App (Web)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2.
+Flip it app is a flashcards application
 
-## Development server
+## Run it locally
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Install dependencies and run the application
 
-## Code scaffolding
+```
+yarn
+yarn start
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Backend
 
-## Build
+The application will try to connect to a backend server, which might not always be available.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Still, you can run your own backend following this repo [flip-it-app backend](https://github.com/mauri1789/flip-it-app)
+and then link it in the file `environment.dev.ts`
 
-## Running unit tests
+## Deployment
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+You'll need to set up your credentials with aws-cli and set the values for the deployment in `deployment.sh`
 
-## Running end-to-end tests
+Run `npm run create` to create a static website in S3 with a cloudfront distribution and a custom Domain Name.
+It usually takes about 15 min.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `npm run deploy` to create a production build and push it to S3.
+At this point you should be able to visit your domain name and the site should be deployed.
 
-## Further help
+Run `npm run update` to make updates to the stack created.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `npm run remove` to remove the stack created. Notice that the S3 bucket will not be deleted.
