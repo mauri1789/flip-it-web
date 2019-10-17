@@ -3,9 +3,6 @@ Transform: AWS::Serverless-2016-10-31
 Description: s3 web hosting for flip it app
 
 Parameters:
-  S3Bucket:
-    Type: String
-    Description: The name of the S3 bucket in which static website is stored
   DomainName:
     Type: String
     Description: Domain Name
@@ -24,6 +21,7 @@ Resources:
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
+        ErrorDocument: index.html
     DeletionPolicy: Retain
 
   FlipSiteBucketPolicy:
@@ -46,8 +44,8 @@ Resources:
       DistributionConfig:
         Comment: Cloudfront Distribution pointing to S3 bucket
         Origins:
-        - DomainName: !Select [2, !Split ["/", !GetAtt FlipSiteBucket.WebsiteURL]]
-          Id: S3Origin
+        - DomainName: !Select [2, !Split ["/", !GetAtt [FlipSiteBucket, WebsiteURL]]]
+          Id: !Join ['', ['S3-Website-', !Ref DomainName, '.s3-website.us-east-2.amazonaws.com']]
           CustomOriginConfig:
             HTTPPort: '80'
             HTTPSPort: '443'
@@ -61,8 +59,8 @@ Resources:
           AllowedMethods:
           - GET
           - HEAD
-          Compress: true
-          TargetOriginId: S3Origin
+          TargetOriginId: !Join ['', ['S3-Website-', !Ref DomainName, '.s3-website.us-east-2.amazonaws.com']]
+          DefaultTTL: 60
           ForwardedValues:
             QueryString: true
             Cookies:
@@ -73,23 +71,13 @@ Resources:
           AcmCertificateArn: !Ref Certificate
           SslSupportMethod: sni-only
 
-  FlipWebCustomDomain:
-    Type: AWS::ApiGateway::DomainName
-    Properties:
-      DomainName: !Ref DomainName
-      EndpointConfiguration:
-        Types:
-          - "EDGE"
-      CertificateArn: !Ref Certificate
-
   FlipSiteDNSName:
     Type: AWS::Route53::RecordSetGroup
-    DependsOn: FlipWebCustomDomain
     Properties:
-      HostedZoneName: !Ref HostedZoneId
+      HostedZoneId: !Ref HostedZoneId
       RecordSets:
       - Name: !Ref DomainName
         Type: A
         AliasTarget:
-          HostedZoneId: !GetAtt FlipWebCustomDomain.DistributionHostedZoneId
-          DNSName: !GetAtt FlipWebCustomDomain.DistributionDomainName
+          HostedZoneId: Z2FDTNDATAQYW2
+          DNSName: !GetAtt [FlipSiteCloudfront, DomainName]

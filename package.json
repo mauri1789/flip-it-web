@@ -1,5 +1,5 @@
 {
-  "name": "bluebird-web",
+  "name": "flip-it-web",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "create": "./deployment.sh --create",
+    "deploy": "./deployment.sh --deploy",
+    "update": "./deployment.sh --update"
   },
   "private": true,
   "dependencies": {
