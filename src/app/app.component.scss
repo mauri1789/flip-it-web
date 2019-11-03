@@ -8,6 +8,22 @@ header {
     background-color: teal;
     justify-content: center;
     align-items: center;
+    .left-links {
+        display: flex;
+        flex: 1 0 0;
+        justify-content: flex-start;
+    }
+    .right-links {
+        display: flex;
+        flex: 1 0 0;
+        justify-content: flex-end;
+        .login {
+            font-weight: bold;
+        }
+        .signup {
+            font-size: 13px;
+        }
+    }
 }
 #content {
     display: flex;

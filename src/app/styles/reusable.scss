@@ -2,11 +2,13 @@
     @media (max-width: 767px) {
         .main-container {
             width: 100vw;
+            display: flex;
         }
     }
     @media (min-width: 768px) {
         .main-container {
             width: 70vw;
+            display: flex;
         }
     }
 }
