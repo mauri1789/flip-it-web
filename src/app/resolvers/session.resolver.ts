@@ -13,34 +13,36 @@ import { mergeMap, take, map }         from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SessionResolver implements Resolve<Observable<any>> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    let { code } = route.queryParams
-    if ( code ) {
-      let { domain, clientId, redirectUrl} = Cognito
-      let url = `https://${domain}/oauth2/token`
-      let body = {
-        grant_type: "authorization_code",
-        client_id: clientId,
-        redirect_url: redirectUrl,
-        code
-      }
+  	resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+	let { code } = route.queryParams
+	if ( code ) {
+      let {
+			domain,
+			clientId,
+			redirectUrl
+      } = Cognito
+      let grant_type = "authorization_code"
+		let url = `https://${domain}/oauth2/token`
+		
+		let body = new URLSearchParams();
+		body.set('grant_type', grant_type);
+		body.set('client_id', clientId);
+		body.set('redirect_uri', redirectUrl);
+		body.set('code', code);
       let httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type':  'application/x-www-form-urlencoded'
-        })
-      };
-      let tokenRequest = this.http.post(url, body, httpOptions)
+			headers: new HttpHeaders({'Content-Type':  'application/x-www-form-urlencoded'})
+		};
+      let tokenRequest = this.http.post(url, body.toString(), httpOptions)
+      console.log("-----")
       tokenRequest = tokenRequest.pipe(
-        map(tokens => {
-          console.log(tokens)
-          return "random string"
-        })
+			map(tokens => {
+				console.log(tokens)
+				return "random string"
+			})
       )
       return tokenRequest
-    }
-    console.log(state)
-    console.log("crazy")
-    return of('hi world')
-  }
-  constructor(private http: HttpClient) { }
+	}
+	return of('hi world')
+	}
+	constructor(private http: HttpClient) { }
 }
