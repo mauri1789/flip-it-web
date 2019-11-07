@@ -60,7 +60,7 @@ Resources:
           - GET
           - HEAD
           TargetOriginId: !Join ['', ['S3-Website-', !Ref DomainName, '.s3-website.us-east-2.amazonaws.com']]
-          DefaultTTL: 60
+          DefaultTTL: 5
           ForwardedValues:
             QueryString: true
             Cookies:

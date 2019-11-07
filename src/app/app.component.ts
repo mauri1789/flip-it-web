@@ -11,7 +11,9 @@ export class AppComponent {
 	constructor(
 		private router: Router,
 		private session: SessionService
-	) { }
+	) {
+		this.session.userLogged()
+	}
 	title = 'flip-it-web';
 	goToLogin() {
 		window.location.href = this.session.getLoginUrl()

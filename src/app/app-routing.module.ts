@@ -3,12 +3,21 @@ import { Routes, RouterModule } from '@angular/router';
 import { DecksComponent } from './views/decks/decks.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { CardsComponent } from "./views/cards/cards.component";
+import { SessionResolver } from "./resolvers/session.resolver";
 
 
 const routes: Routes = [
-  { path: 'decks', component: DecksComponent },
-  { path: 'deck/:deckId', component: CardsComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  {
+    path: '',
+    children: [
+      { path: 'decks', component: DecksComponent },
+      { path: 'deck/:deckId', component: CardsComponent },
+      { path: 'dashboard', component: DashboardComponent }
+    ],
+    resolve: {
+      session: SessionResolver
+    }
+  }
 ];
 
 @NgModule({
