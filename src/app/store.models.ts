@@ -24,7 +24,7 @@ interface Card {
 interface UserSession {
     refreshToken: string,
     token: string,
-    expires: string,
+    expires: number,
     email: string
 }
 

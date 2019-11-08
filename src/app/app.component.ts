@@ -4,6 +4,7 @@ import { SessionService } from './services/session.service';
 import { Store, select } from "@ngrx/store";
 import { DecksSummary, UserSession } from './store.models';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from './services/local-storage.service';
 
 @Component({
 	selector: 'app-root',
@@ -15,11 +16,12 @@ export class AppComponent {
 	title = 'flip-it-web';
 	constructor(
 		private router: Router,
-		private session: SessionService,
+      private session: SessionService,
+      private localStorageService: LocalStorageService,
 		private store: Store<{decksSummary: DecksSummary, userSession: UserSession}>
 	) {
 		this.session.userLogged()
-		this.userSession$ = this.store.pipe(select("userSession"))
+      this.userSession$ = this.store.pipe(select("userSession"))
 	}
 	goToLogin() {
 		window.location.href = this.session.getLoginUrl()

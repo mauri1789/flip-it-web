@@ -6,9 +6,9 @@ import {
    Router, Resolve,
    RouterStateSnapshot,
    ActivatedRouteSnapshot
-}                                 from '@angular/router';
-import { Observable, of, EMPTY }  from 'rxjs';
-import { mergeMap, take, tap, finalize }         from 'rxjs/operators';
+} from '@angular/router';
+import { Observable, EMPTY }  from 'rxjs';
+import { take, finalize } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

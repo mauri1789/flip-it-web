@@ -1,12 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Cognito } from '../app-constants';
+import { Store, select } from '@ngrx/store';
+import { UserSession } from '../store.models';
+import { Observable } from 'rxjs';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-	constructor(private http: HttpClient) {
+   userSession$: Observable<UserSession>
+	constructor(
+      private http: HttpClient,
+      private localStorageService: LocalStorageService,
+      private store: Store<{userSession: UserSession}>
+      ) {
+         this.userSession$ = this.store.pipe(select("userSession"))
+         this.userSession$.subscribe(({token, refreshToken, email, expires}) => {
+            if (token) {
+               this.localStorageService.set("flipUserSession", {token, refreshToken, email, expires})
+               const now = Math.floor((new Date).getTime()/1000);
+               if (expires - now < 300) {
+                  console.log("renew token")
+               }
+            }
+
+         })
+
 	}
 	userLogged():boolean {
 		return false
