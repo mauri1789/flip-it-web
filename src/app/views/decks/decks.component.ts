@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeckService } from '../../services/deck.service';
-import { Deck, DecksSummary } from '../../store.models';
+import { Deck, DecksSummary, UserSession } from '../../store.models';
 import { Store, select } from "@ngrx/store";
 import { Observable } from 'rxjs';
 import { loadDecks } from "../../actions/deck.actions";
@@ -16,14 +16,16 @@ import { Router } from "@angular/router";
 })
 export class DecksComponent implements OnInit {
    decksSummary$: Observable<DecksSummary>
+   userSession$: Observable<UserSession>
    userId: string;
    constructor(
       private deckService:DeckService,
-      private store: Store<{decksSummary: DecksSummary}>,
+      private store: Store<{decksSummary: DecksSummary, userSession: UserSession}>,
       public dialog: MatDialog,
       private router: Router
    ) {
       this.decksSummary$ = store.pipe(select('decksSummary'))
+      this.userSession$ = this.store.pipe(select("userSession"))
       this.userId = "mau"
    }
 

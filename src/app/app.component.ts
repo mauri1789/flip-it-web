@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { SessionService } from './services/session.service';
+import { Store, select } from "@ngrx/store";
+import { DecksSummary, UserSession } from './store.models';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-root',
@@ -8,13 +11,16 @@ import { SessionService } from './services/session.service';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+	userSession$: Observable<UserSession>
+	title = 'flip-it-web';
 	constructor(
 		private router: Router,
-		private session: SessionService
+		private session: SessionService,
+		private store: Store<{decksSummary: DecksSummary, userSession: UserSession}>
 	) {
 		this.session.userLogged()
+		this.userSession$ = this.store.pipe(select("userSession"))
 	}
-	title = 'flip-it-web';
 	goToLogin() {
 		window.location.href = this.session.getLoginUrl()
 	}

@@ -17,6 +17,7 @@ import { cardReducer } from "./reducers/card.reducer";
 import { sessionReducer } from './reducers/session.reducer';
 import { DeckEffects } from "./effects/deck.effects";
 import { CardEffects } from "./effects/card.effects";
+import { SessionEffects } from "./effects/session.effects";
 
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -59,7 +60,8 @@ let MATERIAL_MODULES = [
     }),
     EffectsModule.forRoot([
       DeckEffects,
-      CardEffects
+      CardEffects,
+      SessionEffects
     ])
   ],
   providers: [],

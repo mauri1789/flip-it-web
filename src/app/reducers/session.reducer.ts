@@ -3,9 +3,10 @@ import { setSession } from "../actions/session.actions";
 import { UserSession } from "../store.models";
 
 export const initialState:UserSession = {
-  refresToken: null,
-  token: null,
-  expires: null
+   refreshToken: null,
+   token: null,
+   expires: null,
+   email: null
 }
 
 const _sessionReducer = createReducer(
