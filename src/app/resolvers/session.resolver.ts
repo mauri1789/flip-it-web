@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Cognito } from '../app-constants'
+import { Store, select } from "@ngrx/store";
+import { UserSession } from '../store.models';
+import { Cognito } from '../app-constants';
 import {
   Router, Resolve,
   RouterStateSnapshot,
@@ -13,8 +15,9 @@ import { mergeMap, take, map }         from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SessionResolver implements Resolve<Observable<any>> {
+   userSession$;
   	resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-	let { code } = route.queryParams
+   let { code } = route.queryParams
 	if ( code ) {
       let {
 			domain,
@@ -44,5 +47,10 @@ export class SessionResolver implements Resolve<Observable<any>> {
 	}
 	return of('hi world')
 	}
-	constructor(private http: HttpClient) { }
+	constructor(
+      private http: HttpClient,
+      private store: Store<{userSession: UserSession}>
+   ) {
+      store.pipe(select('userSession')).subscribe(x => console.log(x))
+   }
 }

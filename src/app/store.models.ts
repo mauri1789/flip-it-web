@@ -21,10 +21,16 @@ interface Card {
     pk?: string
     sk?: string
 }
+interface UserSession {
+    refresToken: string,
+    token: string,
+    expires: string
+}
 
 export {
     DecksSummary,
     CardsSummary,
+    UserSession,
     Deck,
     Card
 }

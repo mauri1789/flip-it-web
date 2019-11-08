@@ -14,6 +14,7 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { deckReducer } from "./reducers/deck.reducer";
 import { cardReducer } from "./reducers/card.reducer";
+import { sessionReducer } from './reducers/session.reducer';
 import { DeckEffects } from "./effects/deck.effects";
 import { CardEffects } from "./effects/card.effects";
 
@@ -53,7 +54,8 @@ let MATERIAL_MODULES = [
     MATERIAL_MODULES,
     StoreModule.forRoot({
       decksSummary: deckReducer,
-      cardsSummary: cardReducer
+      cardsSummary: cardReducer,
+      userSession: sessionReducer
     }),
     EffectsModule.forRoot([
       DeckEffects,
