@@ -7,8 +7,9 @@
             <button mat-button [routerLink]="['decks']">Options</button>
         </div>
         <div class="right-links">
-            <button mat-button (click)="goToSignup()" class="signup">Sign Up</button>
-            <button mat-button (click)="goToLogin()" class="login">Login</button>
+            <button *ngIf="!userLogged()" mat-button (click)="goToSignup()" class="signup">Sign Up</button>
+            <button *ngIf="!userLogged()" mat-button (click)="goToLogin()" class="login">Login</button>
+            <button *ngIf="userLogged()" mat-button (click)="signOut()" class="logout">Logout</button>
         </div>
     </div>
 </header>

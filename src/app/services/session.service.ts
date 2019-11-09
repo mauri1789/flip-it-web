@@ -4,22 +4,27 @@ import { Cognito } from '../app-constants';
 import { Store, select } from '@ngrx/store';
 import { UserSession } from '../store.models';
 import { Observable } from 'rxjs';
+import { logout } from '../actions/session.actions';
 import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-   userSession$: Observable<UserSession>
+	userSession$: Observable<UserSession>
+	accessToken: string;
 	constructor(
       private http: HttpClient,
       private localStorageService: LocalStorageService,
       private store: Store<{userSession: UserSession}>
       ) {
-         this.userSession$ = this.store.pipe(select("userSession"))
+				this.userSession$ = this.store.pipe(select("userSession"))
          this.userSession$.subscribe(({token, refreshToken, email, expires}) => {
-            if (token) {
-               this.localStorageService.set("flipUserSession", {token, refreshToken, email, expires})
+				this.accessToken = token
+				if(token !== undefined) {
+					this.localStorageService.set("flipUserSession", {token, refreshToken, email, expires})
+				}
+            if (token != null) {
                const now = Math.floor((new Date).getTime()/1000);
                if (expires - now < 300) {
                   console.log("renew token")
@@ -29,8 +34,11 @@ export class SessionService {
          })
 
 	}
+	logout () {
+		this.store.dispatch(logout())
+	}
 	userLogged():boolean {
-		return false
+		return this.accessToken != null
 	}
 	codeForToken (code: string) {
 		let {

@@ -20,7 +20,6 @@ export class AppComponent {
       private localStorageService: LocalStorageService,
 		private store: Store<{decksSummary: DecksSummary, userSession: UserSession}>
 	) {
-		this.session.userLogged()
       this.userSession$ = this.store.pipe(select("userSession"))
 	}
 	goToLogin() {
@@ -28,5 +27,13 @@ export class AppComponent {
 	}
 	goToSignup() {
 		window.location.href = this.session.getSignupUrl()
+	}
+	userLogged() {
+		return this.session.userLogged()
+	}
+	signOut() {
+		// call logout endpoint
+		// redirect to '/'
+		this.session.logout()
 	}
 }

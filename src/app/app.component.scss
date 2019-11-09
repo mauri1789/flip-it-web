@@ -17,7 +17,7 @@ header {
         display: flex;
         flex: 1 0 0;
         justify-content: flex-end;
-        .login {
+        .login, .logout {
             font-weight: bold;
         }
         .signup {
