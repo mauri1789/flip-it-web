@@ -20,8 +20,7 @@ export class CardEffects {
             tap(() => this.store.dispatch(loadingCards())),
             exhaustMap(action =>
                   this.cardService.getDeckCards(action.userId, action.deckId).pipe(
-                     map(cardsData => setCards(cardsData)),
-                     tap((action) => this.store.dispatch(action))
+                     map(cardsData => setCards(cardsData))
                   )
             )
          )

@@ -32,8 +32,6 @@ export class AppComponent {
 		return this.session.userLogged()
 	}
 	signOut() {
-		// call logout endpoint
-		// redirect to '/'
-		this.session.logout()
+		window.location.href =this.session.logout()
 	}
 }

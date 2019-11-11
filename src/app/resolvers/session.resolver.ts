@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from "@ngrx/store";
 import { UserSession } from '../store.models';
-import { exchangeCode } from '../actions/session.actions';
+import { sessionRequest } from '../actions/session.actions';
 import {
    Router, Resolve,
    RouterStateSnapshot,
@@ -9,6 +9,7 @@ import {
 } from '@angular/router';
 import { Observable, EMPTY }  from 'rxjs';
 import { take, finalize } from 'rxjs/operators';
+import { API } from '../app-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class SessionResolver implements Resolve<Observable<any>> {
   	resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
    let { code } = route.queryParams
 	if ( code ) {
-      this.store.dispatch(exchangeCode({code: code}))
+      this.store.dispatch(sessionRequest({request: API.sessionGetToken, data: {code}}))
       this.userSession$.pipe(take(2), finalize(() => {
          this.router.navigate(['/decks'])
       })).subscribe()

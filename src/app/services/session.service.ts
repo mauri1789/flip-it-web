@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Cognito } from '../app-constants';
+import { Cognito, API } from '../app-constants';
 import { Store, select } from '@ngrx/store';
 import { UserSession } from '../store.models';
 import { Observable } from 'rxjs';
-import { logout } from '../actions/session.actions';
+import { logout, sessionRequest } from '../actions/session.actions';
 import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
@@ -13,6 +13,7 @@ import { LocalStorageService } from '../services/local-storage.service';
 export class SessionService {
 	userSession$: Observable<UserSession>
 	accessToken: string;
+	httpOptions: any;
 	constructor(
       private http: HttpClient,
       private localStorageService: LocalStorageService,
@@ -31,11 +32,15 @@ export class SessionService {
                }
             }
 
-         })
-
+		 })
+		 this.httpOptions = {
+			headers: new HttpHeaders({'Content-Type':  'application/x-www-form-urlencoded'})
+		};
 	}
 	logout () {
 		this.store.dispatch(logout())
+		let { logoutUrl, clientId, domain } = Cognito
+		return `https://${domain}/logout?client_id=${clientId}&logout_uri=${logoutUrl}`
 	}
 	userLogged():boolean {
 		return this.accessToken != null
@@ -45,8 +50,8 @@ export class SessionService {
 			domain,
 			clientId,
 			redirectUrl
-      } = Cognito
-      let grant_type = "authorization_code"
+		} = Cognito
+		let grant_type = "authorization_code"
 		let url = `https://${domain}/oauth2/token`
 
 		let body = new URLSearchParams();
@@ -55,10 +60,7 @@ export class SessionService {
 		body.set('redirect_uri', redirectUrl);
 		body.set('code', code);
 
-		let httpOptions = {
-			headers: new HttpHeaders({'Content-Type':  'application/x-www-form-urlencoded'})
-		};
-      return this.http.post(url, body.toString(), httpOptions)
+     	return this.http.post(url, body.toString(), this.httpOptions)
 	}
 	cognitoUrl (action) {
 		let { domain, redirectUrl, clientId } = Cognito
