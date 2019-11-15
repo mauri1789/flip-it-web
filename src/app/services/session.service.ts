@@ -19,7 +19,7 @@ export class SessionService {
       private localStorageService: LocalStorageService,
       private store: Store<{userSession: UserSession}>
       ) {
-				this.userSession$ = this.store.pipe(select("userSession"))
+			this.userSession$ = this.store.pipe(select("userSession"))
          this.userSession$.subscribe(({token, refreshToken, email, expires}) => {
 				this.accessToken = token
 				if(token !== undefined) {

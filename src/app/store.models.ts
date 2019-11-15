@@ -25,7 +25,8 @@ interface UserSession {
     refreshToken: string,
     token: string,
     expires: number,
-    email: string
+    email: string,
+    data?: object
 }
 
 export {

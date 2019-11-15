@@ -56,9 +56,10 @@ export class SessionEffects {
       let {exp: expiration} = decodedToken
       return {
          refreshToken: refresh_token,
-         token: access_token,
+         token: id_token,
          expires: expiration,
-         email: data.email
+         email: data.email,
+         data: data
       }
    }
 }
