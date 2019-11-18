@@ -22,7 +22,7 @@ interface Card {
     sk?: string
 }
 interface UserSession {
-    refreshToken: string,
+    refreshToken?: string,
     token: string,
     expires: number,
     email: string,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeckService } from '../../services/deck.service';
+import { SessionService } from '../../services/session.service'
 import { Deck, DecksSummary, UserSession } from '../../store.models';
 import { Store, select } from "@ngrx/store";
 import { Observable } from 'rxjs';
@@ -21,6 +22,7 @@ export class DecksComponent implements OnInit {
    constructor(
       private deckService:DeckService,
       private store: Store<{decksSummary: DecksSummary, userSession: UserSession}>,
+      private sessionService: SessionService,
       public dialog: MatDialog,
       private router: Router
    ) {

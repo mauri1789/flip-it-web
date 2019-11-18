@@ -7,7 +7,6 @@ let Cognito = {
 }
 
 let API = {
-   sessionLogout: "sessionLogout",
    sessionGetToken: "sessionGetToken",
    sessionRefreshToken: "sessionRefreshToken"
 }

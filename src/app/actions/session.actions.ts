@@ -3,10 +3,12 @@ import { UserSession } from "../store.models";
 import { API } from "../app-constants"
 
 interface getTokenI {
-	code: string
+	code?: string,
+	token?: string
 }
 
 
+const refreshSession = createAction('[Session Store] refreshSession', props<{userSession: UserSession}>())
 const setSession = createAction('[Session Store] setSession', props<{userSession: UserSession}>())
 const logout = createAction('[Session Logout] logout')
 
@@ -17,6 +19,7 @@ const sessionRequest = createAction(
 
 export {
 	sessionRequest,
+	refreshSession,
 	setSession,
 	logout
 }

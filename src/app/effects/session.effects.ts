@@ -6,7 +6,7 @@ import { catchError, exhaustMap, map, tap, finalize } from 'rxjs/operators';
 
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { SessionService } from "../services/session.service";
-import { setSession, sessionRequest } from "../actions/session.actions";
+import { setSession, sessionRequest, refreshSession } from "../actions/session.actions";
 import { UserSession } from '../store.models'
 import { API } from '../app-constants';
 
@@ -40,6 +40,16 @@ export class SessionEffects {
                         )
                      break
                   case API.sessionRefreshToken:
+                     apiRequest$ = this.sessionService
+                        .refreshToken(data.token)
+                        .pipe(
+                           map(this.buildTokenObject),
+                           map(tokens => {
+                              delete tokens.refreshToken
+                              return tokens
+                           }),
+                           map(tokens => refreshSession({userSession: tokens}))
+                        )
                      break
                }
                return apiRequest$
@@ -52,7 +62,6 @@ export class SessionEffects {
       let {access_token, expires_in, id_token, refresh_token} = tokens as TokenEnpointData
       const decodedToken = jwt.decodeToken(access_token);
       const data = jwt.decodeToken(id_token);
-      // const isExpired = jwt.isTokenExpired(access_token);
       let {exp: expiration} = decodedToken
       return {
          refreshToken: refresh_token,

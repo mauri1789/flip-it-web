@@ -61,6 +61,23 @@ export class SessionService {
 		body.set('code', code);
 
      	return this.http.post(url, body.toString(), this.httpOptions)
+   }
+   refreshToken (code: string) {
+		let {
+			domain,
+			clientId,
+			redirectUrl
+		} = Cognito
+		let grant_type = "refresh_token"
+		let url = `https://${domain}/oauth2/token`
+
+		let body = new URLSearchParams();
+		body.set('grant_type', grant_type);
+		body.set('client_id', clientId);
+		body.set('redirect_uri', redirectUrl);
+		body.set('refresh_token', code);
+
+     	return this.http.post(url, body.toString(), this.httpOptions)
 	}
 	cognitoUrl (action) {
 		let { domain, redirectUrl, clientId } = Cognito

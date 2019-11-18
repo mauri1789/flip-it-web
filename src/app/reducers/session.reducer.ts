@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from "@ngrx/store";
-import { setSession, logout } from "../actions/session.actions";
+import { setSession, refreshSession, logout } from "../actions/session.actions";
 import { UserSession } from "../store.models";
 import { LocalStorageService } from '../services/local-storage.service';
 
@@ -20,6 +20,7 @@ export const initialState:UserSession = {
 const _sessionReducer = createReducer(
    initialState,
    on(setSession, (_, payload) => payload.userSession),
+   on(refreshSession, (state, payload) => ({...state, ...payload})),
    on(logout, () => emptySession())
 )
 
