@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 import { UserSession } from "../store.models";
-import { API } from "../app-constants"
 
 interface getTokenI {
 	code?: string,

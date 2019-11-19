@@ -6,7 +6,7 @@ import { catchError, exhaustMap, map, tap, finalize } from 'rxjs/operators';
 
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { SessionService } from "../services/session.service";
-import { setSession, sessionRequest, refreshSession } from "../actions/session.actions";
+import { setSession, sessionRequest, refreshSession, logout } from "../actions/session.actions";
 import { UserSession } from '../store.models'
 import { API } from '../app-constants';
 
@@ -48,7 +48,8 @@ export class SessionEffects {
                               delete tokens.refreshToken
                               return tokens
                            }),
-                           map(tokens => refreshSession({userSession: tokens}))
+                           map(tokens => refreshSession({userSession: tokens})),
+                           catchError((err) => of(logout()))
                         )
                      break
                }
