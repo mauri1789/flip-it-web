@@ -19,8 +19,8 @@ export const initialState:UserSession = {
 
 const _sessionReducer = createReducer(
    initialState,
-   on(setSession, (_, payload) => payload.userSession),
-   on(refreshSession, (state, payload) => ({...state, ...payload})),
+   on(setSession, (_, {userSession}) => userSession),
+   on(refreshSession, (state, {userSession}) => ({...state, ...userSession})),
    on(logout, () => emptySession())
 )
 
