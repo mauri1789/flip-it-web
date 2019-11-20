@@ -37,5 +37,5 @@ Run `npm run remove` to remove the stack created. Notice that the S3 bucket will
 
 ## Release
 
-1.0 Basic functionality. User can create, edit, delete Decks and Cards
-1.1 Integrated with Authorizer. User can now signup, login and make secure http requests through the cognito Auth2.0 code flow
+- 1.0 Basic functionality. User can create, edit, delete Decks and Cards
+- 1.1 Integrated with Authorizer. User can now signup, login and make secure http requests through the cognito Auth2.0 code flow
