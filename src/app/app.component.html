@@ -1,6 +1,20 @@
 <header>
-    <div class="main-container">
-        <div class="left-links">
+        
+    <div class="logo-cont">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 290"  preserveAspectRatio="xMinYMin meet">
+            <path class="logo-back" d="M402.5,0s-35-7-42,44c-4,88-149,80-174.5,69.5C19.51,72.37,0,247.5,0,247.5V0Z"/>
+        </svg>
+        <div class="logo">
+            <img src="../assets/cat-06.svg">
+        </div>
+    </div>
+    <div class="links-left">
+        again
+    </div>
+    <div class="links-right">
+        and again
+    </div>
+        <!-- <div class="left-links">
             <button mat-button [routerLink]="['decks']">Logo</button>
             <button mat-button [routerLink]="['decks']">Decks</button>
             <button mat-button [routerLink]="['dashboard']">Dashboard</button>
@@ -10,8 +24,7 @@
             <button *ngIf="!userLogged()" mat-button (click)="goToSignup()" class="signup">Sign Up</button>
             <button *ngIf="!userLogged()" mat-button (click)="goToLogin()" class="login">Login</button>
             <button *ngIf="userLogged()" mat-button (click)="signOut()" class="logout">Logout</button>
-        </div>
-    </div>
+        </div> -->
 </header>
 <div id="content">
     <router-outlet></router-outlet>

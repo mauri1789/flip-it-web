@@ -4,25 +4,40 @@ header {
     display: flex;
     color: white;
     font-weight: bold;
-    flex: 0 0 40px;
-    background-color: teal;
+    flex: 0 0 60px;
     justify-content: center;
     align-items: center;
-    .left-links {
-        display: flex;
-        flex: 1 0 0;
-        justify-content: flex-start;
+    .logo-cont {
+        flex: 0 0 300px;
+        height: 100%;
+        >svg {
+            height: 400%;
+            width: 110%;
+            .logo-back {
+                fill: #58a6d6;
+            }
+        }
+        .logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100px;
+            width: inherit;
+            >img {
+                height: 100%;
+                width: 100%;
+            }
+        }
     }
-    .right-links {
+    .links-left {
         display: flex;
-        flex: 1 0 0;
-        justify-content: flex-end;
-        .login, .logout {
-            font-weight: bold;
-        }
-        .signup {
-            font-size: 13px;
-        }
+        flex: 2 0 0;
+        background-color: aquamarine;
+    }
+    .links-right {
+        display:flex;
+        flex: 2 0 0;
+        background-color: brown;
     }
 }
 #content {
